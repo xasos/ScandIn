@@ -32,6 +32,8 @@ var qt = require('quickthumb');
 // var User = require('models/User');
 var request = require('request');
 
+var XMLHttpRequest = require('xhr2');
+
 /**
  * Controllers (route handlers).
  */
@@ -148,9 +150,7 @@ app.post('/api/photo', function(req,res){
     var body = {
       'image': img,
       'subject_id': req.session.passport.user._id,
-      'gallery_name': 'gallerytest1',
-      'selector': 'SETPOSE',
-      'symmetricFill': 'true'
+      'gallery_name': 'gallerytest1'
     };
 
     Request.send(JSON.stringify(body));
