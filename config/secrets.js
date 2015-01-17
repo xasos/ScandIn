@@ -22,7 +22,7 @@
 
 module.exports = {
 
-  db: process.env.MONGOLAB_URI || 'mongodb://localhost:27017/test',
+  db: process.env.MONGOLAB_URI,
 
   sessionSecret: process.env.SESSION_SECRET || 'Your Session Secret goes here',
 
@@ -40,7 +40,6 @@ module.exports = {
     user: process.env.SENDGRID_USER || 'hslogin',
     password: process.env.SENDGRID_PASSWORD || 'hspassword00'
   },
-
   nyt: {
     key: process.env.NYT_KEY || '9548be6f3a64163d23e1539f067fcabd:5:68537648'
   },
