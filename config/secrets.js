@@ -1,5 +1,4 @@
-/
-*
+/*
  * IMPORTANT  IMPORTANT  IMPORTANT  IMPORTANT  IMPORTANT  IMPORTANT  IMPORTANT
  *
  * You should never commit this file to a public repository on GitHub!
@@ -22,7 +21,7 @@
 
 module.exports = {
 
-  db: process.env.MONGOLAB_URI,
+  db: process.env.MONGOLAB_URI || 'mongodb://localhost:27017/test',
 
   sessionSecret: process.env.SESSION_SECRET || 'Your Session Secret goes here',
 
