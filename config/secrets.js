@@ -21,7 +21,7 @@
 
 module.exports = {
 
-  db: process.env.MONGOLAB_URI || 'mongodb://localhost:27017/test',
+  db: process.env.MONGOLAB_URI || 'mongodb://heroku_app33297542:fa731n6p067tm9t15qc43dkhqa@ds031691.mongolab.com:31691/heroku_app33297542',
 
   sessionSecret: process.env.SESSION_SECRET || 'Your Session Secret goes here',
 

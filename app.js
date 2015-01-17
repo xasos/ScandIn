@@ -29,6 +29,9 @@ var formidable = require('formidable');
 var util = require('util');
 var qt = require('quickthumb');
 
+var User = require('../models/User');
+var request = require('request');
+
 /**
  * Controllers (route handlers).
  */
@@ -119,10 +122,39 @@ app.use(multer({ dest: '/uploads',
 }));
 
 app.post('/api/photo', function(req,res){
+  console.log(req.files);
+  fs.readFile(req.files.facial_scan.path, function(err, data) {
+    if (err) throw err;
+    var img = new Buffer(data).toString('base64');
+    
+    request.post('', {
+      id:req.session.passport.user._id,
+      image: img
+    });
+  });
+
   if (done==true){
-    console.log(req.files);
     res.redirect("/account");
   }
+});
+
+app.post('/getData', function(req,res){
+  var id = req.id;
+  User.findById(id, function(err, user){
+    if (err) throw err;
+    var token = _.find(user.tokens, { kind: 'linkedin' });
+    var linkedin = Linkedin.init(token.accessToken);
+    linkedin.people.me(function(err, $in) {
+      if (err) return next(err);
+      var profile = $in;
+      console.log(profile);
+      // res.json({
+      //   name: profile.formattedName,
+      //   headline: profile.headline,
+
+      // })
+    });
+  });
 });
 
 
