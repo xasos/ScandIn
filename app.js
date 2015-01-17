@@ -180,7 +180,7 @@ app.post('/api/photo', function(req,res){
 
 app.post('/api/glass', function(req, res){
 
-  var img = req.img;
+  var img = req.image;
 
   var Request = new XMLHttpRequest();
 
