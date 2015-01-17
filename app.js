@@ -21,6 +21,14 @@ var passport = require('passport');
 var expressValidator = require('express-validator');
 var connectAssets = require('connect-assets');
 
+var multer = require('multer');
+var done = false;
+
+var fs = require('fs-extra');
+var formidable = require('formidable');
+var util = require('util');
+var qt = require('quickthumb');
+
 /**
  * Controllers (route handlers).
  */
@@ -71,6 +79,11 @@ app.use(session({
   secret: secrets.sessionSecret,
   store: new MongoStore({ url: secrets.db, autoReconnect: true })
 }));
+// app.use(express.csrf());
+// app.use(function(req,res,next){
+//   res.locals.token = req.session._csrf;
+//   next();
+// });
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -88,6 +101,30 @@ app.use(function(req, res, next) {
   next();
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+
+app.use(qt.static(__dirname+"/"));
+
+
+app.use(multer({ dest: '/uploads',
+  rename : function(fieldname, filename) {
+    return filename+Date.now();
+  },
+  onFileUploadStart: function(file) {
+    console.log(file.originalname + ' is starting ...');
+  },
+  onFileUploadComplete: function(file) {
+    console.log(file.fieldname + ' uploaded to ' + file.path);
+    done=true;
+  }
+}));
+
+app.post('/api/photo', function(req,res){
+  if (done==true){
+    console.log(req.files);
+    res.redirect("account");
+  }
+});
+
 
 /**
  * Primary app routes.
@@ -189,6 +226,8 @@ app.get('/auth/venmo/callback', passport.authorize('venmo', { failureRedirect: '
  * OpenCV image processing
  */
 app.get('/processImage', apiController.processImage);
+
+app.post('/uploadImage', apiController.uploadImage);
 
 
 /**

@@ -20,6 +20,9 @@ var paypal = require('paypal-rest-sdk');
 var ig = require('instagram-node').instagram();
 var Y = require('yui/yql');
 var _ = require('lodash');
+var formidable = require('formidable');
+var util = require('util');
+
 
 /**
  * GET /api
@@ -683,3 +686,51 @@ exports.getPayPalCancel = function(req, res) {
 exports.processImage = function(req, res) {
   
 };
+
+/**
+* takes the image and generates a base64 encoding for storage in MongoDB
+*/
+
+
+
+exports.uploadImage = function(req, res) {
+  var form = new formidable.IncomingForm();
+  form.parse(req, function(err, fields, files) {
+    res.writeHead(200, {'content-type':'text/plain'});
+    res.write('received upload:\n\n');
+    res.end(util.inspect({fields: fields, files: files}));
+  });
+
+  form.on('end', function(fields, files) {
+    var temp_path = this.openedFiles[0].path;
+    var file_name = this.openedFiles[0].name;
+    var new_location = 'uploads/';
+
+    fs.copy(temp_path, new_location + file_name, function(err) {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log("success!");
+        res.redirect("/uploads/file_name");
+      }
+    });
+  });
+};
+
+// exports.uploadImage = function(req, res) {
+//   fs.readFile(req.files.image.path, function(err, data) {
+//     var imageName = req.files.image.name;
+//     if (!imageName) {
+//       console.log("There was an error");
+//       res.redirect("/");
+//       res.end();
+//     } else {
+//       var newPath = __dirname + "/uploads/fullsize" + imageName;
+
+//       fs.writeFile(newPath, data, function(err) {
+//         res.redirect("/uplaods/fullsize/" + imageName);
+//         res.end();
+//       });
+//     }
+//   });
+// };

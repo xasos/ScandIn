@@ -44,6 +44,20 @@ block content
         button.btn.btn.btn-primary(type='submit')
           span.ion-edit
           | Update Profile
+  .page-header
+    h3 Add Your Picture
+  form.form-horizontal(action='/api/photo', enctype='multipart/form-data' method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label.col-sm-2.control-label(for='facial_scan') Facial Scan
+      .col-sm-4
+        input.form-control(type='file', name='facial_scan', id='facial_scan', value='#{user.profile.facial_scan}')
+    
+    .form-group
+      .col-sm-offset-2.col-sm-4
+        button.btn.btn.btn-primary(type='submit')
+          span.ion-edit
+            | Add Picture
 
   .page-header
     h3 Change Password
