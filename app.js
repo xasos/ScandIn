@@ -1,3 +1,6 @@
+var INDEX = 0;
+var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+
 /**
  * Module dependencies.
  */
@@ -52,6 +55,8 @@ var passportConf = require('./config/passport');
  * Create Express server.
  */
 var app = express();
+
+var users;
 
 /**
  * Connect to MongoDB.
@@ -109,9 +114,6 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 
 app.use(qt.static(__dirname+"/"));
 
-app.set('view options', { locals: { scripts: []}})
-
-
 app.use(multer({ dest: '/uploads',
   rename : function(fieldname, filename) {
     return filename+Date.now();
@@ -130,7 +132,15 @@ app.post('/api/photo', function(req,res){
   fs.readFile(req.files.facial_scan.path, function(err, data) {
     if (err) throw err;
     var img = new Buffer(data).toString('base64');
-    
+
+    var date = new Date();
+
+    // var subj = '';
+
+    // User.findById(req.session.passport.user, function(data){
+    //   subj = data.profile.name.replace(/ /g,'');
+    // });
+
     var Request = new XMLHttpRequest();
 
     Request.open('POST', 'https://api.kairos.com/enroll');
@@ -147,36 +157,20 @@ app.post('/api/photo', function(req,res){
       }
     };
 
+    console.log(req.session.passport.user);
+
     var body = {
-      'image': img,
-      'subject_id': req.session.passport.user._id,
+      'image': "'" + img + "'",
+      'subject_id': alphabet[INDEX],
       'gallery_name': 'gallerytest1'
     };
 
     Request.send(JSON.stringify(body));
 
-    // request({
-    //   method: 'POST',
-    //   url: 'https://api.kairos.com/enroll',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'app_id': '9b369392',
-    //     'app_key': 'eab2f40826fb03bd9ab9471d375e97bc'
-    //   },
-    //   body: { 'image':img, 'subject_id':req.session.passport.user._id, 'gallery_name':'faces','selector':'SETPOSE','symmetricFill':'true'}
-    // }, function (error, response, body) {
-    //   console.log('Status:', response.statusCode);
-    //   console.log('Headers:', JSON.stringify(response.headers));
-    //   console.log('Response:', body);
-    // });
+    userController.addSubjectID(req.session.passport.user, alphabet[INDEX]);
 
 
-    // request.post('http://104.131.57.6/save.php', {
-    //   SUBJECT_ID:req.session.passport.user._id,
-    //   DATA: img
-    // }, function(err, httpResponse, body) {
-    //   console.log(body);
-    // });
+    INDEX++;
   });
 
   if (done==true){
@@ -185,6 +179,33 @@ app.post('/api/photo', function(req,res){
 });
 
 app.post('/api/glass', function(req, res){
+
+  var img = req.img;
+
+  var Request = new XMLHttpRequest();
+
+  Request.open('POST', 'https://api.kairos.com/recognize');
+
+  Request.setRequestHeader('Content-Type', 'application/json');
+  Request.setRequestHeader('app_id', '9b369392');
+  Request.setRequestHeader('app_key', 'eab2f40826fb03bd9ab9471d375e97bc');
+
+  Request.onreadystatechange = function () {
+    if (this.readyState === 4) {
+      console.log('Status:', this.status);
+      console.log('Headers:', this.getAllResponseHeaders());
+      console.log('Body:', this.responseText);
+    }
+  };
+
+  console.log(req.session.passport.user);
+
+  var body = {
+    'image': "'" + img + "'",
+    'gallery_name': 'gallerytest1'
+  };
+
+  Request.send(JSON.stringify(body));
 
 });
 

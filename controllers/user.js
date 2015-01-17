@@ -6,6 +6,17 @@ var passport = require('passport');
 var User = require('../models/User');
 var secrets = require('../config/secrets');
 
+
+exports.addSubjectID = function(id, subjectID) {
+  User.findById(id, function(err, user) {
+    if (err) return next(err);
+    user.subjectID = subjectID || '';
+
+    user.save(function(err) {
+      if (err) return next(err);
+    });
+  });
+};
 /**
  * GET /login
  * Login page.
