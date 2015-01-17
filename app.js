@@ -186,6 +186,12 @@ app.get('/auth/venmo/callback', passport.authorize('venmo', { failureRedirect: '
 });
 
 /**
+ * OpenCV image processing
+ */
+app.get('/processImage', apiController.processImage);
+
+
+/**
  * Error Handler.
  */
 app.use(errorHandler());

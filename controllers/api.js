@@ -676,3 +676,10 @@ exports.getPayPalCancel = function(req, res) {
     canceled: true
   });
 };
+
+/**
+ * Process Image in OpenCV and send back results
+ */
+exports.processImage = function(req, res) {
+  
+};
