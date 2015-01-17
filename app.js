@@ -29,7 +29,7 @@ var formidable = require('formidable');
 var util = require('util');
 var qt = require('quickthumb');
 
-var User = require('../models/User');
+// var User = require('models/User');
 var request = require('request');
 
 /**
@@ -107,6 +107,8 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 
 app.use(qt.static(__dirname+"/"));
 
+app.set('view options', { locals: { scripts: []}})
+
 
 app.use(multer({ dest: '/uploads',
   rename : function(fieldname, filename) {
@@ -127,10 +129,54 @@ app.post('/api/photo', function(req,res){
     if (err) throw err;
     var img = new Buffer(data).toString('base64');
     
-    request.post('', {
-      id:req.session.passport.user._id,
-      image: img
-    });
+    var Request = new XMLHttpRequest();
+
+    Request.open('POST', 'https://api.kairos.com/enroll');
+
+    Request.setRequestHeader('Content-Type', 'application/json');
+    Request.setRequestHeader('app_id', '9b369392');
+    Request.setRequestHeader('app_key', 'eab2f40826fb03bd9ab9471d375e97bc');
+
+    Request.onreadystatechange = function () {
+      if (this.readyState === 4) {
+        console.log('Status:', this.status);
+        console.log('Headers:', this.getAllResponseHeaders());
+        console.log('Body:', this.responseText);
+      }
+    };
+
+    var body = {
+      'image': img,
+      'subject_id': req.session.passport.user._id,
+      'gallery_name': 'gallerytest1',
+      'selector': 'SETPOSE',
+      'symmetricFill': 'true'
+    };
+
+    Request.send(JSON.stringify(body));
+
+    // request({
+    //   method: 'POST',
+    //   url: 'https://api.kairos.com/enroll',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'app_id': '9b369392',
+    //     'app_key': 'eab2f40826fb03bd9ab9471d375e97bc'
+    //   },
+    //   body: { 'image':img, 'subject_id':req.session.passport.user._id, 'gallery_name':'faces','selector':'SETPOSE','symmetricFill':'true'}
+    // }, function (error, response, body) {
+    //   console.log('Status:', response.statusCode);
+    //   console.log('Headers:', JSON.stringify(response.headers));
+    //   console.log('Response:', body);
+    // });
+
+
+    // request.post('http://104.131.57.6/save.php', {
+    //   SUBJECT_ID:req.session.passport.user._id,
+    //   DATA: img
+    // }, function(err, httpResponse, body) {
+    //   console.log(body);
+    // });
   });
 
   if (done==true){
@@ -138,24 +184,29 @@ app.post('/api/photo', function(req,res){
   }
 });
 
-app.post('/getData', function(req,res){
-  var id = req.id;
-  User.findById(id, function(err, user){
-    if (err) throw err;
-    var token = _.find(user.tokens, { kind: 'linkedin' });
-    var linkedin = Linkedin.init(token.accessToken);
-    linkedin.people.me(function(err, $in) {
-      if (err) return next(err);
-      var profile = $in;
-      console.log(profile);
-      // res.json({
-      //   name: profile.formattedName,
-      //   headline: profile.headline,
+app.post('/api/glass', function(req, res){
 
-      // })
-    });
-  });
 });
+
+
+// app.post('/getData', function(req,res){
+//   var id = req.id;
+//   User.findById(id, function(err, user){
+//     if (err) throw err;
+//     var token = _.find(user.tokens, { kind: 'linkedin' });
+//     var linkedin = Linkedin.init(token.accessToken);
+//     linkedin.people.me(function(err, $in) {
+//       if (err) return next(err);
+//       var profile = $in;
+//       console.log(profile);
+//       // res.json({
+//       //   name: profile.formattedName,
+//       //   headline: profile.headline,
+
+//       // })
+//     });
+//   });
+// });
 
 
 /**
