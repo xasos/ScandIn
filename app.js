@@ -184,13 +184,13 @@ app.post('/api/photo', function(req,res){
 });
 
 app.post('/api/glass', function(req, res){
-
   var img = req.image;
   var image = base64_decode(img);
   
-  fs.writeFile("face_"+COUNT+".jpg",image,function(err){
-    if (err) throw err;
-    console.log("Saved!");
+  fs.writeFile("/uploads/face_"+COUNT+".jpg", image, function(err){
+    if (err) return console.error(err);x
+    console.log("Saved at /uploads/face_"+COUNT+".jpg");
+    console.log(req + "\n------------\n");
   });
 
   var Request = new XMLHttpRequest();
@@ -215,7 +215,14 @@ app.post('/api/glass', function(req, res){
   };
 
   Request.send(JSON.stringify(body));
+  COUNT += 1
 
+});
+
+app.get('/uploads/:fileName', function(req, res) {
+  var fileName = req.params.fileName;
+
+  res.sendfile('uploads/' + fileName);
 });
 
 
