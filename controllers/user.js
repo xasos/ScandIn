@@ -16,11 +16,8 @@ exports.linkedIn = function(id) {
       if (err) return next(err);
       var profile = $in;
       console.log(profile);
-      // res.json({
-      //   name: profile.formattedName,
-      //   headline: profile.headline,
-
-      // })
+      var ret = profile.formattedName + " " + profile.headline;
+      return ret;
     });
   });
 };
