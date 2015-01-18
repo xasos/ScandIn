@@ -35,6 +35,9 @@ var qt = require('quickthumb');
 // var User = require('models/User');
 var request = require('request');
 
+var sys = require('sys');
+var base64_decode = require('base64').decode;
+
 var XMLHttpRequest = require('xhr2');
 
 /**
@@ -169,12 +172,12 @@ app.post('/api/photo', function(req,res){
 
     userController.addSubjectID(req.session.passport.user, alphabet[INDEX]);
 
-
+    window.locaton = "/account";
     INDEX++;
   });
 
   if (done==true){
-    res.redirect("/account");
+    window.locaton = "/account";
   }
 });
 
@@ -197,8 +200,6 @@ app.post('/api/glass', function(req, res){
       console.log('Body:', this.responseText);
     }
   };
-
-  console.log(req.session.passport.user);
 
   var body = {
     'image': "'" + img + "'",
