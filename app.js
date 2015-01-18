@@ -90,7 +90,7 @@ app.use(connectAssets({
 }));
 app.use(logger('dev'));
 app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(multer({ dest: path.join(__dirname, 'uploads') }));
 app.use(expressValidator());
 app.use(methodOverride());
