@@ -194,7 +194,9 @@ app.post('/api/glass', function(req, res){
 
   imgur.upload(img, function(err, res)
   {
-    if (err) throw err;
+    if (err) {
+      console.error(err.message);
+    }
     console.log("in imgur");
     console.log(res.data.link);
 
