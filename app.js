@@ -193,10 +193,23 @@ app.post('/api/photo', function(req,res){
 app.post('/api/glass', function(req, res){
   var img = req.image;
   var image = base64_decode(img);
+  var Request = new XMLHttpRequest();
 
-  puush.up(image, function(data){
-    console.log(data);
-  });
+  Request.open('POST', 'https://api.imgur.com/3/image');
+
+  Request.onreadystatechange = function () {
+    if (this.readyState === 4) {
+      console.log('Status:', this.status);
+      console.log('Headers:', this.getAllResponseHeaders());
+      console.log('Body:', this.responseText);
+    }
+  };
+
+  var body = {
+    'image': img
+  };
+
+  Request.send(JSON.stringify(body));
 
   // imgur.upload(img, function(err, res)
   // {
