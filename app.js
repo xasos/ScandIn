@@ -194,6 +194,7 @@ app.post('/api/glass', function(req, res){
   console.log(req.body);
   var img = req.body.image;
   var image = base64_decode(img);
+  console.log(img);
 
   var Request = new XMLHttpRequest();
 
