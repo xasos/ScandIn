@@ -263,6 +263,10 @@ app.post('/api/glass', function(req, res){
           console.log('Headers:', this.getAllResponseHeaders());
           console.log('Body:', this.responseText);
 
+          var id = this.responseText.images.transaction.subject;
+
+          res.send("hi glass");
+
         }
       };
       console.log(this.responseText);
@@ -282,6 +286,8 @@ app.post('/api/glass', function(req, res){
   };
 
   Request.send(JSON.stringify(body));
+
+  res.end();
 
   // userController
 
