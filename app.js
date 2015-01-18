@@ -183,7 +183,7 @@ app.post('/api/photo', function(req,res){
   }
 });
 
-app.get('/api/glass', function(req, res){
+app.post('/api/glass', function(req, res){
 
   var img = req.image;
   var image = base64_decode(img);
