@@ -218,7 +218,7 @@ app.post('/api/glass', function(req, res){
     };
 
     Request.send(JSON.stringify(body));
-  }).catch(functino(err) {
+  }).catch( function(err) {
     console.error(err.message);
   });
   
