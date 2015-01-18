@@ -197,7 +197,7 @@ app.post('/api/glass', function(req, res){
 
   Request.open('POST', 'https://api.imgur.com/3/upload');
 
-  Request.setRequestHeader('Authorization', 'f948415a877272b');
+  Request.setRequestHeader('Authorization', 'Client-ID f948415a877272b');
 
 
   Request.onreadystatechange = function () {
