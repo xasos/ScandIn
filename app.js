@@ -263,11 +263,11 @@ app.post('/api/glass', function(req, res){
           console.log('Headers:', this.getAllResponseHeaders());
           console.log('Body:', this.responseText);
 
-          console.log("asdf + \n" + this.responseText.images);
+          console.log("asdf + \n" + JSON.parse(this.responseText).images.transaction.subject);
 
-          // var id = this.responseText.images.transaction.subject;
-          // userController.linkedin(id);
-          // res.send("hi glass");
+          var id = JSON.parse(this.responseText).images.transaction.subject;
+          userController.linkedin(id);
+          res.send("hi glass");
 
         }
       };
