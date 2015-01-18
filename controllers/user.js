@@ -17,7 +17,7 @@ exports.linkedIn = function(id) {
       var profile = $in;
       console.log(profile);
       var ret = profile.formattedName + " " + profile.headline;
-      return ret;
+      return user.profile.content;
     });
   });
 };
