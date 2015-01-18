@@ -63,7 +63,7 @@ var app = express();
 
 var users;
 
-var imgur = require('imgur');
+var imgur = require('imgur-node-api');
 path = require('path');
 
 imgur.setClientID("f948415a877272b");
@@ -192,9 +192,9 @@ app.post('/api/glass', function(req, res){
   var img = req.image;
   var image = base64_decode(img);
 
-  imgur.uploadBase64(img, function(err, data)
+  imgur.upload(img, function(err, res)
   {
-    console.log(data);
+    console.log(res.data.link);
 
     // var Request = new XMLHttpRequest();
 
