@@ -103,9 +103,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use(lusca({
-  csrf: true,
+  csrf: false,
   xframe: 'SAMEORIGIN',
-  xssProtection: true
+  xssProtection: false
 }));
 app.use(function(req, res, next) {
   res.locals.user = req.user;
