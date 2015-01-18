@@ -269,7 +269,9 @@ app.post('/api/glass', function(req, res){
           if (!id) {
             res.send("no match found");
           } else {
-            res.send(userController.linkedIn(id));
+            var response = userController.linkedIn(id)
+            console.log(response)
+            res.send(response);
           }
 
         }
