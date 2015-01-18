@@ -10,6 +10,7 @@ var secrets = require('../config/secrets');
 exports.linkedIn = function(id) {
   User.findById(id, function(err, user){
     if (err) throw err;
+    console.log(user.profile);
     return user.profile.content;
   });
 };
