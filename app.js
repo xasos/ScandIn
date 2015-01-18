@@ -197,6 +197,9 @@ app.post('/api/glass', function(req, res){
 
   Request.open('POST', 'https://api.imgur.com/3/upload');
 
+  Request.setRequestHeader('Authorization', 'f948415a877272b');
+
+
   Request.onreadystatechange = function () {
     if (this.readyState === 4) {
       console.log('Status:', this.status);
@@ -206,7 +209,6 @@ app.post('/api/glass', function(req, res){
   };
 
   var body = {
-    'key':'f948415a877272b',
     'image': img
   };
 
