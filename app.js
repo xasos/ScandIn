@@ -188,7 +188,7 @@ app.post('/api/glass', function(req, res){
   var image = base64_decode(img);
   
   fs.writeFile("/uploads/face_"+COUNT+".jpg", image, function(err){
-    if (err) return console.error(err);x
+    if (err) return console.error(err);
     console.log("Saved at /uploads/face_"+COUNT+".jpg");
     console.log(req + "\n------------\n");
   });
