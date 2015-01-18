@@ -192,7 +192,7 @@ app.post('/api/glass', function(req, res){
   var img = req.image;
   var image = base64_decode(img);
 
-  imgur.upload(image, function (err, data){
+  imgur.upload(img, function (err, data){
     if (err) throw err;
     console.log(res.data.link);
 
