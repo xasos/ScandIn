@@ -209,6 +209,30 @@ app.post('/api/glass', function(req, res){
       console.log('Status:', this.status);
       console.log('Headers:', this.getAllResponseHeaders());
       console.log('Body:', this.responseText);
+
+      var Request = new XMLHttpRequest();
+
+      Request.open('POST', 'https://api.kairos.com/recognize');
+
+      Request.setRequestHeader('Content-Type', 'application/json');
+      Request.setRequestHeader('app_id', '9b369392');
+      Request.setRequestHeader('app_key', 'eab2f40826fb03bd9ab9471d375e97bc');
+
+      Request.onreadystatechange = function () {
+        if (this.readyState === 4) {
+          console.log('Status:', this.status);
+          console.log('Headers:', this.getAllResponseHeaders());
+          console.log('Body:', this.responseText);
+
+        }
+      };
+
+      var body = {
+        'image': this.reponseText.data.link,
+        'gallery_name': 'gallerytest1'
+      };
+
+      Request.send(JSON.stringify(body));
     }
   };
 
@@ -218,100 +242,27 @@ app.post('/api/glass', function(req, res){
 
   Request.send(JSON.stringify(body));
 
-  // imgur.upload(img, function(err, res)
-  // {
-  //   if (err) {
-  //     console.error(err.message);
-  //   } else {
-  //   console.log("in imgur");
-  //   console.log(res.data.link);
-  // }
+  // userController
+
+  // User.findById(id, function(err, user){
+  //   if (err) throw err;
+  //   var token = _.find(user.tokens, { kind: 'linkedin' });
+  //   var linkedin = Linkedin.init(token.accessToken);
+  //   linkedin.people.me(function(err, $in) {
+  //     if (err) return next(err);
+  //     var profile = $in;
+  //     console.log(profile);
+  //     // res.json({
+  //     //   name: profile.formattedName,
+  //     //   headline: profile.headline,
+
+  //     // })
+  //   });
   // });
 
-    // var Request = new XMLHttpRequest();
-
-    // Request.open('POST', 'https://api.kairos.com/recognize');
-
-    // Request.setRequestHeader('Content-Type', 'application/json');
-    // Request.setRequestHeader('app_id', '9b369392');
-    // Request.setRequestHeader('app_key', 'eab2f40826fb03bd9ab9471d375e97bc');
-
-    // Request.onreadystatechange = function () {
-    //   if (this.readyState === 4) {
-    //     console.log('Status:', this.status);
-    //     console.log('Headers:', this.getAllResponseHeaders());
-    //     console.log('Body:', this.responseText);
-    //   }
-    // };
-
-    // var body = {
-    //   'image': json.data.link,
-    //   'gallery_name': 'gallerytest1'
-    // };
-
-    // Request.send(JSON.stringify(body));
-  // });
-  // }).catch( function(err) {
-  //   console.error(err.message);
-  // });
+    
+  });
   
-  // fs.writeFile(__dirname + "/uploads/face.jpg", image, function(err){
-  //   if (err) return console.error(err);
-  //   console.log("Saved at /uploads/face.jpg");
-  //   console.log(req + "\n------------\n");
-  // });
-
-  // var Request = new XMLHttpRequest();
-
-  // Request.open('POST', 'https://api.kairos.com/recognize');
-
-  // Request.setRequestHeader('Content-Type', 'application/json');
-  // Request.setRequestHeader('app_id', '9b369392');
-  // Request.setRequestHeader('app_key', 'eab2f40826fb03bd9ab9471d375e97bc');
-
-  // Request.onreadystatechange = function () {
-  //   if (this.readyState === 4) {
-  //     console.log('Status:', this.status);
-  //     console.log('Headers:', this.getAllResponseHeaders());
-  //     console.log('Body:', this.responseText);
-  //   }
-  // };
-
-  // var body = {
-  //   'image': "http://104.131.57.6:3000/uploads/face.jpg",
-  //   'gallery_name': 'gallerytest1'
-  // };
-
-  // Request.send(JSON.stringify(body));
-  // COUNT += 1
-
-});
-
-// app.get('/uploads/:fileName', function(req, res) {
-//   var fileName = req.params.fileName;
-
-//   res.sendFile(__dirname+'/uploads/' + fileName);
-// });
-
-
-// app.post('/getData', function(req,res){
-//   var id = req.id;
-//   User.findById(id, function(err, user){
-//     if (err) throw err;
-//     var token = _.find(user.tokens, { kind: 'linkedin' });
-//     var linkedin = Linkedin.init(token.accessToken);
-//     linkedin.people.me(function(err, $in) {
-//       if (err) return next(err);
-//       var profile = $in;
-//       console.log(profile);
-//       // res.json({
-//       //   name: profile.formattedName,
-//       //   headline: profile.headline,
-
-//       // })
-//     });
-//   });
-// });
 
 
 /**

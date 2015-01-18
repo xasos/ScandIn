@@ -7,6 +7,10 @@ var User = require('../models/User');
 var secrets = require('../config/secrets');
 
 
+exports.linkedIn = function() {
+
+};
+
 exports.addSubjectID = function(id, subjectID) {
   User.findById(id, function(err, user) {
     if (err) return next(err);
