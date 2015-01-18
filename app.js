@@ -271,6 +271,7 @@ app.post('/api/glass', function(req, res){
       };
       console.log(this.responseText);
       var link = unescape(JSON.parse(this.responseText).data.link);
+      console.log("IMAGE LINK: " + link);
 
       var body = {
         'image': link,
