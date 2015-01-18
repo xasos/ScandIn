@@ -264,9 +264,13 @@ app.post('/api/glass', function(req, res){
           console.log('Body:', this.responseText);
 
           console.log(JSON.parse(this.responseText).images[0].transaction.subject);
-
           var id = JSON.parse(this.responseText).images[0].transaction.subject
-          res.send(userController.linkedIn(id));
+
+          if (!id) {
+            res.send("no match found");
+          } else {
+            res.send(userController.linkedIn(id));
+          }
 
         }
       };
