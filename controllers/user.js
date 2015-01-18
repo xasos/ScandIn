@@ -7,8 +7,22 @@ var User = require('../models/User');
 var secrets = require('../config/secrets');
 
 
-exports.linkedIn = function() {
+exports.linkedIn = function(id) {
+  User.findById(id, function(err, user){
+    if (err) throw err;
+    var token = _.find(user.tokens, { kind: 'linkedin' });
+    var linkedin = Linkedin.init(token.accessToken);
+    linkedin.people.me(function(err, $in) {
+      if (err) return next(err);
+      var profile = $in;
+      console.log(profile);
+      // res.json({
+      //   name: profile.formattedName,
+      //   headline: profile.headline,
 
+      // })
+    });
+  });
 };
 
 exports.addSubjectID = function(id, subjectID) {
