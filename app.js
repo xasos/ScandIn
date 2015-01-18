@@ -140,49 +140,101 @@ app.use(multer({ dest: '/uploads',
 }));
 
 app.post('/api/photo', function(req,res){
-  console.log(req.files);
-  fs.readFile(req.files.facial_scan.path, function(err, data) {
-    if (err) throw err;
-    var img = new Buffer(data).toString('base64');
 
-    var date = new Date();
+  var Request = new XMLHttpRequest();
 
-    // var subj = '';
+  Request.open('POST', 'https://api.imgur.com/3/upload');
 
-    // User.findById(req.session.passport.user, function(data){
-    //   subj = data.profile.name.replace(/ /g,'');
-    // });
+  Request.setRequestHeader('Authorization', 'Client-ID f948415a877272b');
+  Request.setRequestHeader('Content-Type', 'application/json');
 
-    var Request = new XMLHttpRequest();
 
-    Request.open('POST', 'https://api.kairos.com/enroll');
+  Request.onreadystatechange = function () {
+    if (this.readyState === 4) {
+      console.log('Status:', this.status);
+      console.log('Headers:', this.getAllResponseHeaders());
+      console.log('Body:', this.responseText);
 
-    Request.setRequestHeader('Content-Type', 'application/json');
-    Request.setRequestHeader('app_id', '9b369392');
-    Request.setRequestHeader('app_key', 'eab2f40826fb03bd9ab9471d375e97bc');
+      var Request = new XMLHttpRequest();
 
-    Request.onreadystatechange = function () {
-      if (this.readyState === 4) {
-        console.log('Status:', this.status);
-        console.log('Headers:', this.getAllResponseHeaders());
-        console.log('Body:', this.responseText);
-      }
-    };
+      Request.open('POST', 'https://api.kairos.com/enroll');
 
-    console.log(req.session.passport.user);
+      Request.setRequestHeader('Content-Type', 'application/json');
+      Request.setRequestHeader('app_id', '9b369392');
+      Request.setRequestHeader('app_key', 'eab2f40826fb03bd9ab9471d375e97bc');
 
-    var body = {
-      'image': "http://104.131.57.6:3000/uploads/" + req.files.facial_scan.name,
-      'subject_id': req.session.passport.user,
-      'gallery_name': 'gallerytest1'
-    };
+      Request.onreadystatechange = function () {
+        if (this.readyState === 4) {
+          console.log('Status:', this.status);
+          console.log('Headers:', this.getAllResponseHeaders());
+          console.log('Body:', this.responseText);
 
-    Request.send(JSON.stringify(body));
+        }
+      };
+      console.log(this.responseText);
+      var link = unescape(JSON.parse(this.responseText).data.link);
 
-    userController.addSubjectID(req.session.passport.user, alphabet[INDEX]);
+      var body = {
+        'image': link,
+        'subject_id': req.session.passport.user,
+        'gallery_name': 'gallerytest1'
+      };
 
-    INDEX++;
-  });
+      Request.send(JSON.stringify(body));
+    }
+  };
+
+  var body = {
+    'image': req.files.facial_scan.path
+  };
+
+  Request.send(JSON.stringify(body));
+
+
+
+  // console.log(req.files);
+  // fs.readFile(req.files.facial_scan.path, function(err, data) {
+  //   if (err) throw err;
+  //   var img = new Buffer(data).toString('base64');
+
+  //   var date = new Date();
+
+  //   // var subj = '';
+
+  //   // User.findById(req.session.passport.user, function(data){
+  //   //   subj = data.profile.name.replace(/ /g,'');
+  //   // });
+
+  //   var Request = new XMLHttpRequest();
+
+  //   Request.open('POST', 'https://api.kairos.com/enroll');
+
+  //   Request.setRequestHeader('Content-Type', 'application/json');
+  //   Request.setRequestHeader('app_id', '9b369392');
+  //   Request.setRequestHeader('app_key', 'eab2f40826fb03bd9ab9471d375e97bc');
+
+  //   Request.onreadystatechange = function () {
+  //     if (this.readyState === 4) {
+  //       console.log('Status:', this.status);
+  //       console.log('Headers:', this.getAllResponseHeaders());
+  //       console.log('Body:', this.responseText);
+  //     }
+  //   };
+
+  //   console.log(req.session.passport.user);
+
+  //   var body = {
+  //     'image': "http://104.131.57.6:3000/uploads/" + req.files.facial_scan.name,
+  //     'subject_id': req.session.passport.user,
+  //     'gallery_name': 'gallerytest1'
+  //   };
+
+  //   Request.send(JSON.stringify(body));
+
+  //   userController.addSubjectID(req.session.passport.user, alphabet[INDEX]);
+
+  //   INDEX++;
+  // });
 
   if (done==true){
   }
