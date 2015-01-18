@@ -263,7 +263,7 @@ app.post('/api/glass', function(req, res){
           console.log('Headers:', this.getAllResponseHeaders());
           console.log('Body:', this.responseText);
 
-          console.log("asdf + \n" + (JSON.parse(this.responseText).images.transaction.subject));
+          console.log(JSON.parse(this.responseText).images[0].transaction.subject);
 
           // var id = JSON.parse(this.responseText).images.transaction.subject;
           // userController.linkedin(id);
