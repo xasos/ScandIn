@@ -265,7 +265,7 @@ app.post('/api/glass', function(req, res){
 
           // var id = this.responseText.images.transaction.subject;
           // userController.linkedin(id);
-          res.send("hi glass");
+          // res.send("hi glass");
 
         }
       };
@@ -287,7 +287,6 @@ app.post('/api/glass', function(req, res){
 
   Request.send(JSON.stringify(body));
 
-  res.end();
 
   // userController
 
