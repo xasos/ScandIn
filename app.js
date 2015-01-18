@@ -195,7 +195,7 @@ app.post('/api/glass', function(req, res){
   var image = base64_decode(img);
   var Request = new XMLHttpRequest();
 
-  Request.open('POST', 'https://api.imgur.com/3/image');
+  Request.open('POST', 'http://uploads.im/');
 
   Request.onreadystatechange = function () {
     if (this.readyState === 4) {
@@ -206,7 +206,7 @@ app.post('/api/glass', function(req, res){
   };
 
   var body = {
-    'image': img
+    'upload': image
   };
 
   Request.send(JSON.stringify(body));
