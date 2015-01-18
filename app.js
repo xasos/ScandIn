@@ -218,14 +218,15 @@ app.post('/api/glass', function(req, res){
 
   Request.send(JSON.stringify(body));
 
-  imgur.upload(img, function(err, res)
-  {
-    if (err) {
-      console.error(err.message);
-    }
-    console.log("in imgur");
-    console.log(res.data.link);
-  });
+  // imgur.upload(img, function(err, res)
+  // {
+  //   if (err) {
+  //     console.error(err.message);
+  //   } else {
+  //   console.log("in imgur");
+  //   console.log(res.data.link);
+  // }
+  // });
 
     // var Request = new XMLHttpRequest();
 
