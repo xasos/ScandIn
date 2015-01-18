@@ -1,6 +1,8 @@
 var INDEX = 0;
 var alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 
+var COUNT = 0;
+
 /**
  * Module dependencies.
  */
@@ -181,9 +183,15 @@ app.post('/api/photo', function(req,res){
   }
 });
 
-app.post('/api/glass', function(req, res){
+app.get('/api/glass', function(req, res){
 
   var img = req.image;
+  var image = base64_decode(img);
+  
+  fs.writeFile("face_"+COUNT+".jpg",image,function(err){
+    if (err) throw err;
+    console.log("Saved!");
+  });
 
   var Request = new XMLHttpRequest();
 
@@ -202,7 +210,7 @@ app.post('/api/glass', function(req, res){
   };
 
   var body = {
-    'image': "'" + img + "'",
+    'image': "http://104.131.57.6:3000/uploads/face_" + COUNT + ".jpg",
     'gallery_name': 'gallerytest1'
   };
 
