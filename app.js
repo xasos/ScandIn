@@ -89,7 +89,7 @@ app.use(connectAssets({
   paths: [path.join(__dirname, 'public/css'), path.join(__dirname, 'public/js')]
 }));
 app.use(logger('dev'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer({ dest: path.join(__dirname, 'uploads') }));
 app.use(expressValidator());
@@ -123,7 +123,6 @@ app.use(function(req, res, next) {
   next();
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
-app.use(express.bodyParser({limit: '50mb'}));
 
 app.use(qt.static(__dirname+"/"));
 
