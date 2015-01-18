@@ -225,8 +225,10 @@ app.post('/api/glass', function(req, res){
         }
       };
 
+      var link = unescape(this.responseText.data.link);
+
       var body = {
-        'image': this.reponseText.data.link,
+        'image': link,
         'gallery_name': 'gallerytest1'
       };
 
