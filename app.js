@@ -190,8 +190,10 @@ app.post('/api/photo', function(req,res){
   }
 });
 
-app.post('/api/glass', function(req, res){
-  var img = req.image;
+app.get('/api/glass', function(req, res){
+  console.log(req.headers);
+  console.log(req.body);
+  var img = req.body.image;
   var image = base64_decode(img);
   console.log(img);
 
@@ -211,7 +213,7 @@ app.post('/api/glass', function(req, res){
   };
 
   var body = {
-    'image': img
+    'image': image
   };
 
   Request.send(JSON.stringify(body));
