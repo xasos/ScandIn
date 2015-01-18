@@ -195,7 +195,7 @@ app.post('/api/glass', function(req, res){
   var image = base64_decode(img);
   var Request = new XMLHttpRequest();
 
-  Request.open('POST', 'http://uploads.im/');
+  Request.open('POST', 'http://uploads.im/api');
 
   Request.onreadystatechange = function () {
     if (this.readyState === 4) {
