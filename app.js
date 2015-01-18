@@ -65,6 +65,8 @@ var users;
 
 var imgur = require('imgur-node-api');
 path = require('path');
+var Puush = require('puush');
+var puush = new Puush();
 
 imgur.setClientID("f948415a877272b");
 
@@ -192,13 +194,17 @@ app.post('/api/glass', function(req, res){
   var img = req.image;
   var image = base64_decode(img);
 
-  imgur.upload(img, function(err, res)
-  {
-    if (err) {
-      console.error(err.message);
-    }
-    console.log("in imgur");
-    console.log(res.data.link);
+  puush.up(image, function(data){
+    console.log(data);
+  });
+
+  // imgur.upload(img, function(err, res)
+  // {
+  //   if (err) {
+  //     console.error(err.message);
+  //   }
+  //   console.log("in imgur");
+  //   console.log(res.data.link);
 
     // var Request = new XMLHttpRequest();
 
@@ -222,7 +228,7 @@ app.post('/api/glass', function(req, res){
     // };
 
     // Request.send(JSON.stringify(body));
-  });
+  // });
   // }).catch( function(err) {
   //   console.error(err.message);
   // });
