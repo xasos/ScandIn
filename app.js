@@ -193,6 +193,7 @@ app.post('/api/photo', function(req,res){
 app.post('/api/glass', function(req, res){
   var img = req.image;
   var image = base64_decode(img);
+
   var Request = new XMLHttpRequest();
 
   Request.open('POST', 'https://api.imgur.com/3/upload');
@@ -209,7 +210,7 @@ app.post('/api/glass', function(req, res){
   };
 
   var body = {
-    'image': img
+    'image': image
   };
 
   Request.send(JSON.stringify(body));
