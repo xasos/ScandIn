@@ -194,29 +194,29 @@ app.post('/api/glass', function(req, res){
   console.log(req.body);
   var img = req.body.image;
   var image = base64_decode(img);
-  console.log(img);
+  // console.log(img);
 
-  var Request = new XMLHttpRequest();
+  // var Request = new XMLHttpRequest();
 
-  Request.open('POST', 'https://api.imgur.com/3/upload');
+  // Request.open('POST', 'https://api.imgur.com/3/upload');
 
-  Request.setRequestHeader('Authorization', 'Client-ID f948415a877272b');
-  Request.setRequestHeader('Content-type', 'application/json');
+  // Request.setRequestHeader('Authorization', 'Client-ID f948415a877272b');
+  // Request.setRequestHeader('Content-Type', 'application/json');
 
 
-  Request.onreadystatechange = function () {
-    if (this.readyState === 4) {
-      console.log('Status:', this.status);
-      console.log('Headers:', this.getAllResponseHeaders());
-      console.log('Body:', this.responseText);
-    }
-  };
+  // Request.onreadystatechange = function () {
+  //   if (this.readyState === 4) {
+  //     console.log('Status:', this.status);
+  //     console.log('Headers:', this.getAllResponseHeaders());
+  //     console.log('Body:', this.responseText);
+  //   }
+  // };
 
-  var body = {
-    'image': image
-  };
+  // var body = {
+  //   'image': image
+  // };
 
-  Request.send(JSON.stringify(body));
+  // Request.send(JSON.stringify(body));
 
   // imgur.upload(img, function(err, res)
   // {
@@ -253,35 +253,35 @@ app.post('/api/glass', function(req, res){
   //   console.error(err.message);
   // });
   
-  // fs.writeFile("/uploads/face_"+COUNT+".jpg", image, function(err){
-  //   if (err) return console.error(err);
-  //   console.log("Saved at /uploads/face_"+COUNT+".jpg");
-  //   console.log(req + "\n------------\n");
-  // });
+  fs.writeFile("/uploads/face_"+COUNT+".jpg", image, function(err){
+    if (err) return console.error(err);
+    console.log("Saved at /uploads/face_"+COUNT+".jpg");
+    console.log(req + "\n------------\n");
+  });
 
-  // var Request = new XMLHttpRequest();
+  var Request = new XMLHttpRequest();
 
-  // Request.open('POST', 'https://api.kairos.com/recognize');
+  Request.open('POST', 'https://api.kairos.com/recognize');
 
-  // Request.setRequestHeader('Content-Type', 'application/json');
-  // Request.setRequestHeader('app_id', '9b369392');
-  // Request.setRequestHeader('app_key', 'eab2f40826fb03bd9ab9471d375e97bc');
+  Request.setRequestHeader('Content-Type', 'application/json');
+  Request.setRequestHeader('app_id', '9b369392');
+  Request.setRequestHeader('app_key', 'eab2f40826fb03bd9ab9471d375e97bc');
 
-  // Request.onreadystatechange = function () {
-  //   if (this.readyState === 4) {
-  //     console.log('Status:', this.status);
-  //     console.log('Headers:', this.getAllResponseHeaders());
-  //     console.log('Body:', this.responseText);
-  //   }
-  // };
+  Request.onreadystatechange = function () {
+    if (this.readyState === 4) {
+      console.log('Status:', this.status);
+      console.log('Headers:', this.getAllResponseHeaders());
+      console.log('Body:', this.responseText);
+    }
+  };
 
-  // var body = {
-  //   'image': "http://104.131.57.6:3000/uploads/face_" + COUNT + ".jpg",
-  //   'gallery_name': 'gallerytest1'
-  // };
+  var body = {
+    'image': "http://104.131.57.6:3000/uploads/face_" + COUNT + ".jpg",
+    'gallery_name': 'gallerytest1'
+  };
 
-  // Request.send(JSON.stringify(body));
-  // COUNT += 1
+  Request.send(JSON.stringify(body));
+  COUNT += 1
 
 });
 
