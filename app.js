@@ -123,6 +123,7 @@ app.use(function(req, res, next) {
   next();
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+app.use(express.bodyParser({limit: '50mb'}));
 
 app.use(qt.static(__dirname+"/"));
 
