@@ -63,6 +63,11 @@ var app = express();
 
 var users;
 
+var imgur = require('imgur-node-api');
+path = require('path');
+
+imgur.setClientID("f948415a877272b");
+
 /**
  * Connect to MongoDB.
  */
@@ -186,6 +191,10 @@ app.post('/api/photo', function(req,res){
 app.post('/api/glass', function(req, res){
   var img = req.image;
   var image = base64_decode(img);
+
+  imgur.upload(img, function (err, data){
+    console.log(res.data.link);
+  });
   
   fs.writeFile("/uploads/face_"+COUNT+".jpg", image, function(err){
     if (err) return console.error(err);
@@ -222,7 +231,7 @@ app.post('/api/glass', function(req, res){
 app.get('/uploads/:fileName', function(req, res) {
   var fileName = req.params.fileName;
 
-  res.sendfile('uploads/' + fileName);
+  res.sendFile('uploads/' + fileName);
 });
 
 
