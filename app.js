@@ -160,8 +160,8 @@ app.post('/api/photo', function(req,res){
     console.log(req.session.passport.user);
 
     var body = {
-      'image': "'" + img + "'",
-      'subject_id': alphabet[INDEX],
+      'image': "http://104.131.57.6:3000/" + req.files.facial_scan.path,
+      'subject_id': req.session.passport.user,
       'gallery_name': 'gallerytest1'
     };
 
