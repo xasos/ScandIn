@@ -225,6 +225,7 @@ app.post('/api/glass', function(req, res){
     }
     console.log("in imgur");
     console.log(res.data.link);
+  });
 
     // var Request = new XMLHttpRequest();
 
