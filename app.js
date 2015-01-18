@@ -213,7 +213,7 @@ app.post('/api/glass', function(req, res){
   };
 
   var body = {
-    'image': image
+    'image': img
   };
 
   Request.send(JSON.stringify(body));
