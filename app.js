@@ -253,7 +253,7 @@ app.post('/api/glass', function(req, res){
   //   console.error(err.message);
   // });
   
-  fs.writeFile("/uploads/face_"+COUNT+".jpg", image, function(err){
+  fs.writeFile(__dirname + "/uploads/face_"+COUNT+".jpg", image, function(err){
     if (err) return console.error(err);
     console.log("Saved at /uploads/face_"+COUNT+".jpg");
     console.log(req + "\n------------\n");
