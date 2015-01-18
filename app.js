@@ -285,11 +285,11 @@ app.post('/api/glass', function(req, res){
 
 });
 
-app.get('/uploads/:fileName', function(req, res) {
-  var fileName = req.params.fileName;
+// app.get('/uploads/:fileName', function(req, res) {
+//   var fileName = req.params.fileName;
 
-  res.sendFile(__dirname+'/uploads/' + fileName);
-});
+//   res.sendFile(__dirname+'/uploads/' + fileName);
+// });
 
 
 // app.post('/getData', function(req,res){
