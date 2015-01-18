@@ -519,6 +519,10 @@ exports.getLinkedin = function(req, res, next) {
   var linkedin = Linkedin.init(token.accessToken);
   linkedin.people.me(function(err, $in) {
     if (err) return next(err);
+    res.render('api/linkedin', {
+      title: 'LinkedIn API',
+      profile: $in
+    });
   });
 };
 
