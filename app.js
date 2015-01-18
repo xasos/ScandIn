@@ -224,7 +224,7 @@ app.post('/api/glass', function(req, res){
 
         }
       };
-
+      console.log(this.responseText);
       var link = unescape(this.responseText.data.link);
 
       var body = {
