@@ -190,7 +190,7 @@ app.post('/api/photo', function(req,res){
   }
 });
 
-app.get('/api/glass', function(req, res){
+app.post('/api/glass', function(req, res){
   console.log(req.headers);
   console.log(req.body);
   var img = req.body.image;
