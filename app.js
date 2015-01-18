@@ -63,7 +63,7 @@ var app = express();
 
 var users;
 
-var imgur = require('imgur-node-api');
+var imgur = require('imgur');
 path = require('path');
 
 imgur.setClientID("f948415a877272b");
@@ -192,9 +192,9 @@ app.post('/api/glass', function(req, res){
   var img = req.image;
   var image = base64_decode(img);
 
-  imgur.upload(img, function (err, data){
-    if (err) throw err;
-    console.log(res.data.link);
+  imgur.uploadBase64(img)
+  .then (function (json){
+    console.log(json.data.link);
 
     var Request = new XMLHttpRequest();
 
@@ -213,11 +213,13 @@ app.post('/api/glass', function(req, res){
     };
 
     var body = {
-      'image': res.data.link,
+      'image': json.data.link,
       'gallery_name': 'gallerytest1'
     };
 
     Request.send(JSON.stringify(body));
+  }).catch(functino(err) {
+    console.error(err.message);
   });
   
   // fs.writeFile("/uploads/face_"+COUNT+".jpg", image, function(err){
