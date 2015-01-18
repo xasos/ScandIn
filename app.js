@@ -192,35 +192,36 @@ app.post('/api/glass', function(req, res){
   var img = req.image;
   var image = base64_decode(img);
 
-  imgur.uploadBase64(img)
-  .then (function (json){
-    console.log(json.data.link);
+  imgur.uploadBase64(img, function(err, data)
+  {
+    console.log(data);
 
-    var Request = new XMLHttpRequest();
+    // var Request = new XMLHttpRequest();
 
-    Request.open('POST', 'https://api.kairos.com/recognize');
+    // Request.open('POST', 'https://api.kairos.com/recognize');
 
-    Request.setRequestHeader('Content-Type', 'application/json');
-    Request.setRequestHeader('app_id', '9b369392');
-    Request.setRequestHeader('app_key', 'eab2f40826fb03bd9ab9471d375e97bc');
+    // Request.setRequestHeader('Content-Type', 'application/json');
+    // Request.setRequestHeader('app_id', '9b369392');
+    // Request.setRequestHeader('app_key', 'eab2f40826fb03bd9ab9471d375e97bc');
 
-    Request.onreadystatechange = function () {
-      if (this.readyState === 4) {
-        console.log('Status:', this.status);
-        console.log('Headers:', this.getAllResponseHeaders());
-        console.log('Body:', this.responseText);
-      }
-    };
+    // Request.onreadystatechange = function () {
+    //   if (this.readyState === 4) {
+    //     console.log('Status:', this.status);
+    //     console.log('Headers:', this.getAllResponseHeaders());
+    //     console.log('Body:', this.responseText);
+    //   }
+    // };
 
-    var body = {
-      'image': json.data.link,
-      'gallery_name': 'gallerytest1'
-    };
+    // var body = {
+    //   'image': json.data.link,
+    //   'gallery_name': 'gallerytest1'
+    // };
 
-    Request.send(JSON.stringify(body));
-  }).catch( function(err) {
-    console.error(err.message);
+    // Request.send(JSON.stringify(body));
   });
+  // }).catch( function(err) {
+  //   console.error(err.message);
+  // });
   
   // fs.writeFile("/uploads/face_"+COUNT+".jpg", image, function(err){
   //   if (err) return console.error(err);
