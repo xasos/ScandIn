@@ -181,12 +181,10 @@ app.post('/api/photo', function(req,res){
 
     userController.addSubjectID(req.session.passport.user, alphabet[INDEX]);
 
-    window.locaton = "/account";
     INDEX++;
   });
 
   if (done==true){
-    window.locaton = "/account";
   }
 });
 
