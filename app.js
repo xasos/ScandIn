@@ -263,15 +263,21 @@ app.post('/api/glass', function(req, res){
           console.log('Headers:', this.getAllResponseHeaders());
           console.log('Body:', this.responseText);
 
-          console.log(JSON.parse(this.responseText).images[0].transaction.subject);
-          var id = JSON.parse(this.responseText).images[0].transaction.subject
+          if (!JSON.parse(this.responseText).images[0])
+          {
+            res.send("Try again! Bad picture.");
+          }
+          else {
+            console.log(JSON.parse(this.responseText).images[0].transaction.subject);
+            var id = JSON.parse(this.responseText).images[0].transaction.subject
 
-          if (!id) {
-            res.send("no match found");
-          } else {
-            var response = userController.linkedIn(id)
-            console.log(response)
-            res.send(response);
+            if (!id) {
+              res.send("no match found");
+            } else {
+              var response = userController.linkedIn(id)
+              console.log(response)
+              res.send(response);
+            }
           }
 
         }
