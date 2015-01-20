@@ -164,8 +164,8 @@ app.post('/api/photo', function(req,res){
         Request.open('POST', 'https://api.kairos.com/enroll');
 
         Request.setRequestHeader('Content-Type', 'application/json');
-        Request.setRequestHeader('app_id', '9b369392');
-        Request.setRequestHeader('app_key', 'eab2f40826fb03bd9ab9471d375e97bc');
+        Request.setRequestHeader('app_id', process.env.app_id);
+        Request.setRequestHeader('app_key', process.env.app_key);
 
         Request.onreadystatechange = function () {
           if (this.readyState === 4) {
@@ -193,36 +193,6 @@ app.post('/api/photo', function(req,res){
     };
 
     Request.send(JSON.stringify(body));
-
-    // var Request = new XMLHttpRequest();
-
-    // Request.open('POST', 'https://api.kairos.com/enroll');
-
-    // Request.setRequestHeader('Content-Type', 'application/json');
-    // Request.setRequestHeader('app_id', '9b369392');
-    // Request.setRequestHeader('app_key', 'eab2f40826fb03bd9ab9471d375e97bc');
-
-    // Request.onreadystatechange = function () {
-    //   if (this.readyState === 4) {
-    //     console.log('Status:', this.status);
-    //     console.log('Headers:', this.getAllResponseHeaders());
-    //     console.log('Body:', this.responseText);
-    //   }
-    // };
-
-    // console.log(req.session.passport.user);
-
-    // var body = {
-    //   'image': "http://104.131.57.6:3000/uploads/" + req.files.facial_scan.name,
-    //   'subject_id': req.session.passport.user,
-    //   'gallery_name': 'gallerytest1'
-    // };
-
-    // Request.send(JSON.stringify(body));
-
-    // userController.addSubjectID(req.session.passport.user, alphabet[INDEX]);
-
-    // INDEX++;
   });
 
   if (done==true){
@@ -233,7 +203,6 @@ app.post('/api/glass', function(req, res){
   console.log(req.body);
   var img = req.body.image;
   var image = base64_decode(img);
-  // console.log(img);
 
   var Request = new XMLHttpRequest();
 
@@ -254,8 +223,8 @@ app.post('/api/glass', function(req, res){
       Request.open('POST', 'https://api.kairos.com/recognize');
 
       Request.setRequestHeader('Content-Type', 'application/json');
-      Request.setRequestHeader('app_id', '9b369392');
-      Request.setRequestHeader('app_key', 'eab2f40826fb03bd9ab9471d375e97bc');
+      Request.setRequestHeader('app_id', process.env.app_id);
+      Request.setRequestHeader('app_key', process.env.app_key);
 
       Request.onreadystatechange = function () {
         if (this.readyState === 4) {
@@ -305,26 +274,6 @@ app.post('/api/glass', function(req, res){
   };
 
   Request.send(JSON.stringify(body));
-
-
-  // userController
-
-  // User.findById(id, function(err, user){
-  //   if (err) throw err;
-  //   var token = _.find(user.tokens, { kind: 'linkedin' });
-  //   var linkedin = Linkedin.init(token.accessToken);
-  //   linkedin.people.me(function(err, $in) {
-  //     if (err) return next(err);
-  //     var profile = $in;
-  //     console.log(profile);
-  //     // res.json({
-  //     //   name: profile.formattedName,
-  //     //   headline: profile.headline,
-
-  //     // })
-  //   });
-  // });
-
     
   });
   
